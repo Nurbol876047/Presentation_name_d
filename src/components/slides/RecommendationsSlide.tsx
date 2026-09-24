@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { RECOMMENDATIONS, SOURCES } from "@/data/content";
 
 export default function RecommendationsSlide() {
@@ -18,7 +19,12 @@ export default function RecommendationsSlide() {
           </div>
         ))}
       </div>
-      <p className="sources rise" style={{ "--i": 9 } as React.CSSProperties}>
+      <div className="title-actions rise" style={{ "--i": 9 } as React.CSSProperties}>
+        <Link href="/games" className="btn btn-primary">
+          Ойынға өту 🎮
+        </Link>
+      </div>
+      <p className="sources rise" style={{ "--i": 10 } as React.CSSProperties}>
         Дереккөздер: {SOURCES.join(" · ")}
       </p>
     </div>

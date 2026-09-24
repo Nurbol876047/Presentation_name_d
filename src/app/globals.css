@@ -881,3 +881,383 @@ kbd {
     overflow-y: auto;
   }
 }
+
+/* ==================================================================== */
+/* games (quiz + audience board game)                                   */
+/* ==================================================================== */
+
+.game-shell {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(1100px 650px at 85% -8%, rgba(255, 46, 159, 0.22), transparent 60%),
+    radial-gradient(900px 620px at -5% 8%, rgba(0, 229, 255, 0.18), transparent 60%),
+    radial-gradient(1000px 700px at 15% 108%, rgba(255, 210, 63, 0.16), transparent 60%),
+    radial-gradient(800px 500px at 100% 100%, rgba(139, 92, 246, 0.2), transparent 60%),
+    linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 100%);
+  padding: clamp(20px, 4vw, 56px) clamp(16px, 4vw, 40px) 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 3vh, 32px);
+}
+
+.game-back {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.game-back:hover {
+  color: var(--fg);
+}
+
+.game-header {
+  text-align: center;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.game-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 28px);
+  max-width: 920px;
+  width: 100%;
+}
+
+.game-card {
+  padding: clamp(22px, 2.4vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  border-top: 4px solid var(--c, var(--accent));
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.game-card .tag {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c, var(--accent));
+  font-weight: 700;
+}
+
+.game-card b {
+  font-family: var(--font-head), sans-serif;
+  font-size: clamp(19px, 1.9vw, 25px);
+}
+
+.game-card p {
+  margin: 0;
+  color: #d7ddf3;
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.5;
+}
+
+.game-card .go {
+  margin-top: 4px;
+  font-weight: 700;
+  color: var(--c, var(--accent));
+}
+
+/* quiz */
+
+.quiz-card {
+  max-width: 720px;
+  width: 100%;
+  padding: clamp(22px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vh, 22px);
+}
+
+.quiz-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.quiz-progress b {
+  color: var(--accent);
+}
+
+.quiz-bar {
+  height: 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.quiz-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-3), var(--accent));
+  transition: width 0.4s ease;
+}
+
+.quiz-q {
+  font-size: clamp(18px, 2vw, 25px);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option {
+  text-align: left;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  font-size: clamp(13px, 1.1vw, 16px);
+  font-weight: 600;
+  color: var(--fg);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.quiz-option:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.11);
+  transform: translateX(3px);
+}
+
+.quiz-option:disabled {
+  cursor: default;
+}
+
+.quiz-option.correct {
+  background: rgba(182, 255, 59, 0.16);
+  border-color: var(--accent-4);
+  color: #eaffcf;
+}
+
+.quiz-option.wrong {
+  background: rgba(255, 46, 159, 0.16);
+  border-color: var(--accent-3);
+  color: #ffd8ee;
+}
+
+.quiz-note {
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  font-size: clamp(12.5px, 1.05vw, 15px);
+  color: #d7ddf3;
+  line-height: 1.45;
+}
+
+.quiz-result {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  padding: clamp(30px, 4vw, 50px) 20px;
+}
+
+.quiz-result .score {
+  font-family: var(--font-head), sans-serif;
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 800;
+  background: linear-gradient(120deg, var(--accent-2), var(--accent-3), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* audience board game */
+
+.board-teams {
+  display: flex;
+  gap: clamp(10px, 1.6vw, 16px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.board-team {
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 140px;
+  border-top: 3px solid var(--c, var(--accent));
+}
+
+.board-team input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--fg);
+  font-weight: 700;
+  text-align: center;
+  font-size: 14px;
+  width: 100%;
+}
+
+.board-team .score {
+  font-family: var(--font-head), sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  color: var(--c, var(--accent));
+}
+
+.board-team .score-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.board-team .mini {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  color: var(--fg);
+  font-weight: 700;
+}
+
+.board-team .mini:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(6px, 1vw, 10px);
+  width: 100%;
+  max-width: 980px;
+}
+
+.board-col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vw, 10px);
+}
+
+.board-col-head {
+  text-align: center;
+  font-family: var(--font-head), sans-serif;
+  font-weight: 800;
+  padding: 10px 6px;
+  border-radius: 12px;
+  font-size: clamp(11px, 1vw, 14px);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c);
+}
+
+.board-cell {
+  aspect-ratio: 3 / 2;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head), sans-serif;
+  font-weight: 800;
+  font-size: clamp(16px, 2vw, 24px);
+  color: var(--fg);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.board-cell:hover:not(:disabled) {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.board-cell:disabled {
+  opacity: 0.2;
+  cursor: default;
+}
+
+.board-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 4, 14, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.board-modal {
+  max-width: 720px;
+  width: 100%;
+  padding: clamp(26px, 4vw, 46px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.4vh, 24px);
+  text-align: center;
+}
+
+.board-modal .value {
+  font-family: var(--font-head), sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.board-modal .question {
+  font-size: clamp(19px, 2.4vw, 29px);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.board-modal .answer {
+  font-size: clamp(16px, 1.8vw, 22px);
+  color: var(--accent-4);
+  font-weight: 700;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(182, 255, 59, 0.1);
+  border: 1px solid rgba(182, 255, 59, 0.35);
+}
+
+.board-award-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 760px) {
+  .game-cards {
+    grid-template-columns: 1fr;
+  }
+  .board-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
