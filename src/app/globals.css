@@ -887,8 +887,11 @@ kbd {
 /* ==================================================================== */
 
 .game-shell {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   background:
     radial-gradient(1100px 650px at 85% -8%, rgba(255, 46, 159, 0.22), transparent 60%),
     radial-gradient(900px 620px at -5% 8%, rgba(0, 229, 255, 0.18), transparent 60%),
@@ -1130,15 +1133,22 @@ kbd {
   gap: 6px;
 }
 
+.board-team .score-btns {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .board-team .mini {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
+  min-width: 34px;
+  height: 26px;
+  padding: 0 6px;
+  border-radius: 8px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.06);
   cursor: pointer;
   color: var(--fg);
   font-weight: 700;
+  font-size: 11px;
 }
 
 .board-team .mini:hover {
@@ -1147,10 +1157,10 @@ kbd {
 
 .board-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: clamp(6px, 1vw, 10px);
   width: 100%;
-  max-width: 980px;
+  max-width: 1180px;
 }
 
 .board-col {

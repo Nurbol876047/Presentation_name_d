@@ -78,11 +78,17 @@ export default function BoardPage() {
             <input value={t.name} onChange={(e) => renameTeam(i, e.target.value)} maxLength={16} />
             <span className="score">{t.score}</span>
             <span className="score-btns">
-              <button className="mini" onClick={() => bump(i, -100)}>
-                −
+              <button className="mini" onClick={() => bump(i, -100)} title="−100">
+                −100
               </button>
-              <button className="mini" onClick={() => bump(i, 100)}>
-                +
+              <button className="mini" onClick={() => bump(i, -10)} title="−10">
+                −10
+              </button>
+              <button className="mini" onClick={() => bump(i, 10)} title="+10">
+                +10
+              </button>
+              <button className="mini" onClick={() => bump(i, 100)} title="+100">
+                +100
               </button>
             </span>
           </div>
